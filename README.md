@@ -1,4 +1,4 @@
-# Dental Appointment System
+# Hamro Dental Care - Appointment System
 
 Welcome to the Dental Appointment System. This is a full-stack web application designed for managing patients, dentists, services, and online appointments.
 
