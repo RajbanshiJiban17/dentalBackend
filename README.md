@@ -1,100 +1,56 @@
-# Dental Appointment System - Database Design
+# Dental.com - Dental Appointment System
 
-## ERD (Entities and Relationships)
+Welcome to the **Dental.com** Dental Appointment System. This is a full-stack web application designed for managing patients, dentists, services, and online appointments.
 
-```mermaid
-erDiagram
-    USER ||--o| DENTIST : "is a"
-    USER ||--o{ APPOINTMENT : "books (as patient)"
-    DENTIST ||--o{ APPOINTMENT : "attends"
-    SERVICE ||--o{ APPOINTMENT : "provided in"
-    
-    USER {
-        int id PK
-        string name
-        string email UK
-        string password
-        enum role "patient, dentist, admin"
-        datetime createdAt
-        datetime updatedAt
-    }
+## 🌐 Official Site: [www.dental.com](http://www.dental.com) (Branding)
 
-    DENTIST {
-        int id PK
-        int userId FK
-        string specialization
-        text bio
-        boolean isActive
-    }
+---
 
-    SERVICE {
-        int id PK
-        string name
-        text description
-        decimal price
-        int duration "in minutes"
-    }
+## 🚀 Deployment Instructions
 
-    APPOINTMENT {
-        int id PK
-        int patientId FK "references USER.id"
-        int dentistId FK "references DENTIST.id"
-        int serviceId FK "references SERVICE.id"
-        datetime appointmentTime
-        enum status "pending, confirmed, completed, cancelled"
-        text notes
-    }
-```
+This system is configured for automated deployment using **Render** (Backend) and **Netlify** (Frontend).
 
-## SQL Schema (CREATE TABLE statements)
+### 1. Backend (Render)
+- **Repo**: [RajbanshiJiban17/dentalBackend](https://github.com/RajbanshiJiban17/dentalBackend.git)
+- **Deployment Method**: [Render Blueprints](https://dashboard.render.com/blueprints).
+- **Steps**:
+    1. Connect your GitHub.
+    2. Input Database Environment Variables (DB_HOST, DB_USER, etc.).
+    3. Click **Apply**.
 
-```sql
-CREATE TABLE Users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('patient', 'dentist', 'admin') DEFAULT 'patient',
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX (email)
-);
+### 2. Frontend (Netlify)
+- **Deployment Method**: Connect GitHub to Netlify.
+- **Auto-Config**: Netlify will use the `netlify.toml` automatically.
 
-CREATE TABLE Dentists (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT NOT NULL,
-    specialization VARCHAR(255),
-    bio TEXT,
-    isActive BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE,
-    INDEX (userId)
-);
+### 3. Database (Aiven/MySQL)
+- Recommended: [Aiven.io](https://aiven.io/) for a free-tier MySQL database.
 
-CREATE TABLE Services (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    price DECIMAL(10, 2) NOT NULL,
-    duration INT NOT NULL DEFAULT 30,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+---
 
-CREATE TABLE Appointments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    patientId INT NOT NULL,
-    dentistId INT NOT NULL,
-    serviceId INT NOT NULL,
-    appointmentTime DATETIME NOT NULL,
-    status ENUM('pending', 'confirmed', 'completed', 'cancelled') DEFAULT 'pending',
-    notes TEXT,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (patientId) REFERENCES Users(id) ON DELETE CASCADE,
-    FOREIGN KEY (dentistId) REFERENCES Dentists(id) ON DELETE CASCADE,
-    FOREIGN KEY (serviceId) REFERENCES Services(id) ON DELETE CASCADE,
-    INDEX (appointmentTime),
-    INDEX (patientId),
-    INDEX (dentistId)
-);
-```
+## 🛠 Features
+- **Patient Dashboard**: Book appointments, view history.
+- **Dentist Dashboard**: Manage slots, view scheduled patients.
+- **Admin Panel**: Manage services, dentists, and users.
+- **Role-based Access**: Secure JWT authentication.
+
+## 🗄 Database Design
+The system uses a MySQL relational database. You can find the ERD and Schema details in the `README.md` history or the documentation.
+
+---
+
+## 📝 Setup for Local Development
+1. **Backend**: 
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
+2. **Frontend**:
+   ```bash
+   cd frontend
+   # Open index.html or use a live server
+   ```
+
+---
+
+*Note: www.dental.com is used here as a branding identifier. To use the actual domain, you must purchase it from a domain registrar and link it to your Netlify/Render hosting.*
