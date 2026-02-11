@@ -47,8 +47,8 @@ Follow these steps to set up and run the Dental Appointment System locally.
    Or simply open the project in VS Code and use the "Live Server" extension.
 
 ## 4. Test Accounts
-- **Admin**: `admin@dental.com` / `admin123`
-- **Dentist**: `john@dental.com` / `dentist123`
+- **Admin**: `admin@example.com` / `admin123`
+- **Dentist**: `john@example.com` / `dentist123`
 - **Patient**: Register a new account via the UI.
 
 ## Features implemented:

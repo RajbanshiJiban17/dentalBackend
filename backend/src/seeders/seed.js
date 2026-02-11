@@ -9,7 +9,7 @@ const seed = async () => {
         const adminPassword = await bcrypt.hash('admin123', 10);
         await User.create({
             name: 'Admin User',
-            email: 'admin@dental.com',
+            email: 'admin@example.com',
             password: admin123,
             role: 'admin'
         });

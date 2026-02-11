@@ -51,4 +51,6 @@ The system uses a MySQL relational database. You can find the ERD and Schema det
 
 ---
 
-*Note: www.dental.com is used here as a branding identifier. To use the actual domain, you must purchase it from a domain registrar and link it to your Netlify/Render hosting.*
+---
+
+*Note: This system is designed for professional dental care management.*
