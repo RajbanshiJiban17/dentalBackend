@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DentalCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="toast-container"></div>
+    <header class="glass" style="position: sticky; top: 0; z-index: 100;">
+        <nav class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
+            <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer;"
+                onclick="location.href='index.html'">Admin<span style="color: var(--accent);">Control</span></h1>
+            <button class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Home</a>
+                <a href="index.html#services"
+                    style="text-decoration: none; color: var(--text); font-weight: 500;">Services</a>
+                <a href="about.html" style="text-decoration: none; color: var(--text); font-weight: 500;">About</a>
+                <a href="contact.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Contact</a>
+                <span id="user-name" style="font-weight: 600; font-size: 0.9rem;"></span>
+                <button onclick="logout()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.85rem;">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container" style="padding: 3rem 0;">
+        <div class="fade-in" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">System Management</h2>
+            <p style="color: var(--text-muted);">Oversee all operations, staff, and services.</p>
+        </div>
+
+        <div
+            style="display: flex; gap: 1rem; margin-bottom: 3rem; background: #f1f5f9; padding: 0.5rem; border-radius: var(--radius); width: fit-content;">
+            <button onclick="showTab('appointments')" id="btn-appointments" class="btn btn-primary"
+                style="padding: 0.6rem 1.5rem;">Appointments</button>
+            <button onclick="showTab('dentists')" id="btn-dentists" class="btn btn-outline"
+                style="padding: 0.6rem 1.5rem; border: none;">Dentists</button>
+            <button onclick="showTab('services')" id="btn-services" class="btn btn-outline"
+                style="padding: 0.6rem 1.5rem; border: none;">Services</button>
+        </div>
+
+        <section id="appointments-tab" class="tab-content">
+            <div id="all-appointments" class="grid" style="grid-template-columns: 1fr; gap: 1.5rem;">
+                <div class="card" style="text-align: center; padding: 4rem;">Loading appointments...</div>
+            </div>
+        </section>
+
+        <section id="dentists-tab" class="tab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem;">Medical Staff</h3>
+                <button class="btn btn-primary" onclick="openDentistModal()">Add Specialist</button>
+            </div>
+            <div id="dentists-list" class="grid" style="grid-template-columns: 1fr; gap: 1.5rem;"></div>
+        </section>
+
+        <section id="services-tab" class="tab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem;">Clinical Services</h3>
+                <button class="btn btn-primary" onclick="openServiceModal()">Add Service</button>
+            </div>
+            <div id="services-list" class="grid" style="grid-template-columns: 1fr; gap: 1.5rem;"></div>
+        </section>
+
+        <!-- Service Modal -->
+        <div id="service-modal" class="modal-backdrop">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="service-modal-title">Add Service</h3>
+                    <button class="close-btn" onclick="closeModal('service-modal')">&times;</button>
+                </div>
+                <form id="service-form">
+                    <input type="hidden" id="service-id">
+                    <div class="form-group">
+                        <label class="form-label">Service Name</label>
+                        <input type="text" id="service-name" class="form-control" placeholder="e.g., Root Canal"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea id="service-description" class="form-control" rows="3"
+                            placeholder="Describe the service..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div class="form-group">
+                            <label class="form-label">Price (Rs.)</label>
+                            <input type="number" id="service-price" class="form-control" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Duration (mins)</label>
+                            <input type="number" id="service-duration" class="form-control" required min="1">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save
+                        Service</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dentist Modal -->
+        <div id="dentist-modal" class="modal-backdrop">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="dentist-modal-title">Add Dentist</h3>
+                    <button class="close-btn" onclick="closeModal('dentist-modal')">&times;</button>
+                </div>
+                <form id="dentist-form">
+                    <input type="hidden" id="dentist-id">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="dentist-name" class="form-control" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="dentist-email" class="form-control" required>
+                    </div>
+                    <div id="password-group" class="form-group">
+                        <label class="form-label">System Password</label>
+                        <input type="password" id="dentist-password" class="form-control" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Specialization</label>
+                        <input type="text" id="dentist-specialization" class="form-control"
+                            placeholder="e.g., Orthodontics" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Short Bio</label>
+                        <textarea id="dentist-bio" class="form-control" rows="3"
+                            placeholder="Doctor's credentials and experience..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Doctor Photo</label>
+                        <input type="file" id="dentist-image" class="form-control" accept="image/*">
+                        <small style="color: var(--text-muted);">Leave empty to keep current or use default.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save
+                        Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || user.role !== 'admin') {
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('user-name').textContent = `Administrator: ${user.name}`;
+            showTab('appointments');
+        });
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[id^="btn-"]').forEach(el => {
+                el.classList.remove('btn-primary');
+                el.classList.add('btn-outline');
+                el.style.border = 'none';
+            });
+
+            document.getElementById(`${tab}-tab`).style.display = 'block';
+            const activeBtn = document.getElementById(`btn-${tab}`);
+            activeBtn.classList.remove('btn-outline');
+            activeBtn.classList.add('btn-primary');
+            activeBtn.style.border = '';
+
+            loadTabData(tab);
+        }
+
+        let currentDentists = [];
+        let currentServices = [];
+
+        async function loadTabData(tab) {
+            try {
+                if (tab === 'appointments') {
+                    const res = await fetchAPI('/appointments');
+                    const container = document.getElementById('all-appointments');
+                    if (res.data.length === 0) {
+                        container.innerHTML = '<div class="card" style="text-align: center; padding: 4rem;">No appointments found.</div>';
+                        return;
+                    }
+                    container.innerHTML = res.data.map(a => `
+                        <div class="card fade-in" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                <div style="width: 45px; height: 45px; background: rgba(37, 99, 235, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary);">👤</div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">${a.patient.name} <span style="font-weight: 400; color: var(--text-muted); font-size: 0.9rem;">for ${a.service.name}</span></h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">${new Date(a.appointmentTime).toLocaleString()} | With Dr. ${a.dentist.user.name}</p>
+                                </div>
+                            </div>
+                            <span class="status-badge status-${a.status}">${a.status}</span>
+                        </div>
+                    `).join('');
+                } else if (tab === 'dentists') {
+                    const res = await fetchAPI('/dentists');
+                    currentDentists = res.data;
+                    document.getElementById('dentists-list').innerHTML = currentDentists.map(d => `
+                        <div class="card fade-in" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                <div style="width: 45px; height: 45px; background: rgba(6, 182, 212, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                    ${d.image ? `<img src="http://localhost:5001${d.image}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="color: var(--accent);">👨‍⚕️</span>'}
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">Dr. ${d.user.name}</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem;">${d.specialization} | ${d.user.email}</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="handleEditDentist(${d.id})">Edit</button>
+                                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);" onclick="deleteDentist(${d.id})">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else if (tab === 'services') {
+                    const res = await fetchAPI('/services');
+                    currentServices = res.data;
+                    document.getElementById('services-list').innerHTML = currentServices.map(s => `
+                        <div class="card fade-in" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                                <div style="width: 45px; height: 45px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--success);">✨</div>
+                                <div>
+                                    <h4 style="font-size: 1.1rem; margin-bottom: 0.25rem;">${s.name}</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem;">Rs. ${s.price} | ${s.duration} mins</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="handleEditService(${s.id})">Edit</button>
+                                <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: var(--danger); color: var(--danger);" onclick="deleteService(${s.id})">Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        const openModal = (id) => document.getElementById(id).style.display = 'flex';
+        const closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+        function openServiceModal(id = null, name = '', desc = '', price = '', dur = '') {
+            document.getElementById('service-id').value = id || '';
+            document.getElementById('service-name').value = name;
+            document.getElementById('service-description').value = desc;
+            document.getElementById('service-price').value = price;
+            document.getElementById('service-duration').value = dur;
+            document.getElementById('service-modal-title').textContent = id ? 'Edit Service' : 'Add New Service';
+            openModal('service-modal');
+        }
+
+        function openDentistModal(id = null, name = '', email = '', spec = '', bio = '') {
+            document.getElementById('dentist-form').reset();
+            document.getElementById('dentist-id').value = id || '';
+            document.getElementById('dentist-name').value = name;
+            document.getElementById('dentist-email').value = email;
+            document.getElementById('dentist-specialization').value = spec;
+            document.getElementById('dentist-bio').value = bio;
+            document.getElementById('dentist-modal-title').textContent = id ? 'Edit Profile' : 'Add Specialist';
+
+            const passGrp = document.getElementById('password-group');
+            if (id) {
+                passGrp.querySelector('label').textContent = 'New Password (Optional)';
+                document.getElementById('dentist-password').removeAttribute('required');
+            } else {
+                passGrp.querySelector('label').textContent = 'System Password';
+                document.getElementById('dentist-password').setAttribute('required', 'true');
+            }
+            openModal('dentist-modal');
+        }
+
+        const handleEditDentist = (id) => {
+            const d = currentDentists.find(dentist => dentist.id === id);
+            if (d) openDentistModal(d.id, d.user.name, d.user.email, d.specialization, d.bio);
+        };
+
+        const handleEditService = (id) => {
+            const s = currentServices.find(service => service.id === id);
+            if (s) openServiceModal(s.id, s.name, s.description, s.price, s.duration);
+        };
+
+        // CRUD
+        document.getElementById('service-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('service-id').value;
+            const payload = {
+                name: document.getElementById('service-name').value,
+                description: document.getElementById('service-description').value,
+                price: document.getElementById('service-price').value,
+                duration: document.getElementById('service-duration').value,
+            };
+            try {
+                if (id) {
+                    await fetchAPI(`/services/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+                    showToast('Service updated');
+                } else {
+                    await fetchAPI('/services', { method: 'POST', body: JSON.stringify(payload) });
+                    showToast('Service added');
+                }
+                closeModal('service-modal');
+                loadTabData('services');
+            } catch (err) { showToast(err.message, 'error'); }
+        });
+
+        document.getElementById('dentist-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('dentist-id').value;
+            const formData = new FormData();
+            formData.append('name', document.getElementById('dentist-name').value);
+            formData.append('email', document.getElementById('dentist-email').value);
+            formData.append('specialization', document.getElementById('dentist-specialization').value);
+            formData.append('bio', document.getElementById('dentist-bio').value);
+
+            const pass = document.getElementById('dentist-password').value;
+            if (pass) formData.append('password', pass);
+
+            const imageFile = document.getElementById('dentist-image').files[0];
+            if (imageFile) formData.append('image', imageFile);
+
+            try {
+                if (id) {
+                    await fetchAPI(`/dentists/${id}`, { method: 'PUT', body: formData });
+                    showToast('Profile updated');
+                } else {
+                    await fetchAPI('/dentists', { method: 'POST', body: formData });
+                    showToast('Specialist added');
+                }
+                closeModal('dentist-modal');
+                loadTabData('dentists');
+            } catch (err) { showToast(err.message, 'error'); }
+        });
+
+        async function deleteDentist(id) {
+            if (!confirm('Permanently remove this specialist?')) return;
+            try {
+                await fetchAPI(`/dentists/${id}`, { method: 'DELETE' });
+                showToast('Specialist removed');
+                loadTabData('dentists');
+            } catch (err) { showToast(err.message, 'error'); }
+        }
+
+        async function deleteService(id) {
+            if (!confirm('Permanently remove this service?')) return;
+            try {
+                await fetchAPI(`/services/${id}`, { method: 'DELETE' });
+                showToast('Service removed');
+                loadTabData('services');
+            } catch (err) { showToast(err.message, 'error'); }
+        }
+
+        function setupMobileMenu() {
+            const toggle = document.getElementById('mobile-menu');
+            const nav = document.querySelector('.nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', setupMobileMenu);
+    </script>
+</body>
+</body>
+
+</html>

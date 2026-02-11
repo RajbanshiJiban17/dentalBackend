@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - DentalCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="glass" style="position: sticky; top: 0; z-index: 100;">
+        <nav class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
+            <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer;"
+                onclick="location.href='index.html'">Dental<span style="color: var(--accent);">Care</span></h1>
+            <button class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Home</a>
+                <a href="index.html#services"
+                    style="text-decoration: none; color: var(--text); font-weight: 500;">Services</a>
+                <a href="about.html" style="text-decoration: none; color: var(--text); font-weight: 500;">About</a>
+                <a href="contact.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Contact</a>
+                <div id="auth-links" style="display: flex; gap: 1rem;">
+                    <a href="login.html" class="btn btn-outline" style="padding: 0.5rem 1rem;">Login</a>
+                    <a href="register.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Register</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main
+        style="min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.05), transparent);">
+        <div class="container" style="max-width: 450px;">
+            <div class="card fade-in" style="padding: 2.5rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h1 style="font-size: 2rem; font-weight: 700; color: var(--primary);">Join Us</h1>
+                    <p style="color: var(--text-muted);">Create an account to start booking</p>
+                </div>
+
+                <form id="register-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="name@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create
+                        Account</button>
+                </form>
+
+                <div id="error-msg"
+                    style="color: var(--danger); text-align: center; margin-top: 1rem; font-weight: 500; display: none;">
+                </div>
+
+                <p style="text-align: center; margin-top: 2rem; color: var(--text-muted);">
+                    Already have an account? <a href="login.html"
+                        style="color: var(--primary); font-weight: 600; text-decoration: none;">Login</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('mobile-menu');
+            const nav = document.querySelector('.nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                });
+            }
+        });
+
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error-msg');
+
+            try {
+                await auth.register({ name, email, password });
+                showToast('Registration successful! Welcome.');
+                setTimeout(() => window.location.href = 'patient.html', 1500);
+            } catch (err) {
+                errorDiv.textContent = err.message;
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

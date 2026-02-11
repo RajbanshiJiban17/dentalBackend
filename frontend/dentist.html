@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentist Dashboard - DentalCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="glass" style="position: sticky; top: 0; z-index: 100;">
+        <nav class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
+            <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer;"
+                onclick="location.href='index.html'">Dental<span style="color: var(--accent);">Care</span></h1>
+            <button class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Home</a>
+                <a href="index.html#services"
+                    style="text-decoration: none; color: var(--text); font-weight: 500;">Services</a>
+                <a href="about.html" style="text-decoration: none; color: var(--text); font-weight: 500;">About</a>
+                <a href="contact.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Contact</a>
+                <span id="user-name" style="font-weight: 600; font-size: 0.9rem;"></span>
+                <button onclick="logout()" class="btn btn-outline"
+                    style="padding: 0.5rem 1rem; font-size: 0.85rem;">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container" style="padding: 3rem 0;">
+        <div class="fade-in" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Appointments Dashboard</h2>
+            <p style="color: var(--text-muted);">Manage your upcoming patient appointments and statuses.</p>
+        </div>
+
+        <div id="appointments-list" class="grid" style="grid-template-columns: 1fr;">
+            <!-- Appointments will be loaded here -->
+            <div class="card" style="text-align: center; padding: 4rem;">Loading appointments...</div>
+        </div>
+    </main>
+
+    <footer style="padding: 5rem 0; background: #0f172a; color: white; margin-top: 4rem;">
+        <div class="container" style="text-align: center;">
+            <p style="color: #64748b; font-size: 0.9rem;">&copy; 2026 DentalCare Clinic. Developed by Jiban Chaudhary.
+                All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || user.role !== 'dentist') {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('user-name').textContent = `Dr. ${user.name}`;
+            loadAppointments();
+        });
+
+        async function loadAppointments() {
+            try {
+                const res = await fetchAPI('/appointments');
+                const list = document.getElementById('appointments-list');
+
+                if (res.data.length === 0) {
+                    list.innerHTML = '<div class="card" style="text-align: center; padding: 4rem;">No appointments found.</div>';
+                    return;
+                }
+
+                list.innerHTML = res.data.map(app => `
+                    <div class="card fade-in" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <span class="status-badge status-${app.status}">${app.status}</span>
+                                <strong style="font-size: 1.1rem;">${app.patient.name}</strong>
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                                ${new Date(app.appointmentTime).toLocaleString()} | ${app.service.name}
+                            </p>
+                            ${app.notes ? `<p style="margin-top: 0.5rem; font-size: 0.9rem;"><em>Note: ${app.notes}</em></p>` : ''}
+                        </div>
+                        <div class="actions-div" style="display: flex; gap: 0.5rem;">
+                            ${app.status === 'pending' ? `
+                                <button onclick="updateStatus(${app.id}, 'confirmed', this)" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Accept</button>
+                                <button onclick="updateStatus(${app.id}, 'cancelled', this)" class="btn btn-outline" style="padding: 0.5rem 1rem; border-color: var(--danger); color: var(--danger); font-size: 0.85rem;">Reject</button>
+                            ` : app.status === 'confirmed' ? `
+                                <button onclick="updateStatus(${app.id}, 'completed', this)" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Mark Completed</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                showToast('Failed to load appointments', 'error');
+            }
+        }
+
+        async function updateStatus(id, status, btn) {
+            try {
+                const card = btn.closest('.card');
+                await fetchAPI(`/appointments/${id}/status`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ status })
+                });
+
+                showToast(`Appointment ${status} successfully`, 'success');
+
+                // Smooth AJAX update
+                const badge = card.querySelector('.status-badge');
+                badge.className = `status-badge status-${status}`;
+                badge.textContent = status;
+
+                const actionsDiv = card.querySelector('.actions-div');
+                if (status === 'confirmed') {
+                    actionsDiv.innerHTML = `<button onclick="updateStatus(${id}, 'completed', this)" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Mark Completed</button>`;
+                } else {
+                    actionsDiv.innerHTML = '';
+                    if (status === 'cancelled') {
+                        card.style.opacity = '0.5';
+                    }
+                }
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        function setupMobileMenu() {
+            const toggle = document.getElementById('mobile-menu');
+            const nav = document.querySelector('.nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', setupMobileMenu);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Appointment - Premium Care</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="glass" style="position: sticky; top: 0; z-index: 100;">
+        <nav class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
+            <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer;"
+                onclick="location.href='index.html'">Dental<span style="color: var(--accent);">Care</span></h1>
+            <button class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="index.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Home</a>
+                <a href="#services" style="text-decoration: none; color: var(--text); font-weight: 500;">Services</a>
+                <a href="about.html" style="text-decoration: none; color: var(--text); font-weight: 500;">About</a>
+                <a href="contact.html" style="text-decoration: none; color: var(--text); font-weight: 500;">Contact</a>
+                <div id="auth-links" style="display: flex; gap: 1rem;">
+                    <a href="login.html" class="btn btn-outline" style="padding: 0.5rem 1rem;">Login</a>
+                    <a href="register.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Register</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero"
+            style="padding: 10rem 0; background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent), radial-gradient(circle at bottom left, rgba(37, 99, 235, 0.15), transparent); position: relative; overflow: hidden;">
+            <div class="container" style="text-align: center; position: relative; z-index: 2;">
+                <span class="fade-in"
+                    style="background: rgba(37, 99, 235, 0.1); color: var(--primary); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 600; font-size: 0.9rem; margin-bottom: 2rem; display: inline-block;">Premium
+                    Dental Care in Nepalgunj</span>
+                <h2 class="fade-in"
+                    style="font-size: 4.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">
+                    Your Smile, Our <span class="text-gradient">Masterpiece</span>
+                </h2>
+                <p class="fade-in"
+                    style="font-size: 1.25rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 3rem; animation-delay: 0.1s; line-height: 1.7;">
+                    Experience world-class dentistry where technology meets compassion. From routine checkups to complex
+                    restorations, we're here for your lifetime of smiles.</p>
+                <div class="fade-in" style="display: flex; gap: 1rem; justify-content: center; animation-delay: 0.2s;">
+                    <a href="register.html" class="btn btn-primary">Book Appointment</a>
+                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                </div>
+            </div>
+            <!-- Decorative blobs -->
+            <div
+                style="position: absolute; top: -10%; right: -5%; width: 400px; height: 400px; background: var(--accent); opacity: 0.05; border-radius: 50%; filter: blur(80px);">
+            </div>
+            <div
+                style="position: absolute; bottom: -10%; left: -5%; width: 300px; height: 300px; background: var(--primary); opacity: 0.05; border-radius: 50%; filter: blur(80px);">
+            </div>
+        </section>
+
+        <section class="container" style="margin-top: -4rem; position: relative; z-index: 10;">
+            <div class="grid grid-cols-4 stats-grid glass"
+                style="border-radius: var(--radius); padding: 3rem 1rem; background: rgba(255,255,255,0.9);">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">15k+</div>
+                    <div class="stat-label">Happy Patients</div>
+                </div>
+                <div class="stat-item fade-in" style="animation-delay: 0.1s;">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Expert Dentists</div>
+                </div>
+                <div class="stat-item fade-in" style="animation-delay: 0.2s;">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Years Excellence</div>
+                </div>
+                <div class="stat-item fade-in" style="animation-delay: 0.3s;">
+                    <div class="stat-number">4.9/5</div>
+                    <div class="stat-label">Avg. Rating</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" style="padding: 8rem 0; background: white;">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <span
+                        style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">What
+                        we offer</span>
+                    <h2 style="font-size: 3rem; margin-top: 0.5rem;">Our Specialized Services</h2>
+                    <p>Comprehensive dental care using the latest technology and gentle techniques tailored to your
+                        needs.</p>
+                </div>
+                <div id="services-grid" class="grid grid-cols-3">
+                    <div class="card" style="text-align: center;">Loading Services...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experts" style="padding: 8rem 0; background: #f8fafc;">
+            <div class="container">
+                <div class="section-header">
+                    <span
+                        style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Our
+                        Team</span>
+                    <h2 style="font-size: 3rem; margin-top: 0.5rem;">Meet Our Experts</h2>
+                    <p>Our team of highly qualified dentists and clinical staff dedicated to your oral health.</p>
+                </div>
+                <div id="team-grid" class="grid grid-cols-3">
+                    <div class="card" style="grid-column: span 3; text-align: center; padding: 4rem;">Loading our expert
+                        team...</div>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="about.html" class="btn btn-outline">Read Our Full Story</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="padding: 8rem 0; background: white;">
+            <div class="container">
+                <div class="grid grid-cols-2" style="gap: 6rem; align-items: center;">
+                    <div class="fade-in">
+                        <span
+                            style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Contact
+                            Us</span>
+                        <h2 style="font-size: 3rem; margin: 1rem 0 2rem;">Get In Touch</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.8;">
+                            Have questions? Our team is here to help you with your dental concerns and appointment
+                            scheduling.</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div
+                                    style="width: 40px; height: 40px; background: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                    📍</div>
+                                <div>
+                                    <h5 style="margin: 0;">Location</h5>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Nepalgunj, Nepal
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div
+                                    style="width: 40px; height: 40px; background: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                    📞</div>
+                                <div>
+                                    <h5 style="margin: 0;">Phone</h5>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">+977 1 4XXXXXX
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div
+                                    style="width: 40px; height: 40px; background: rgba(37, 99, 235, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                    ✉</div>
+                                <div>
+                                    <h5 style="margin: 0;">Email</h5>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+                                        info@dentalcare.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass fade-in" style="padding: 3rem; border-radius: var(--radius);">
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label class="form-label">Hospital / Clinic Name</label>
+                                <input type="text" id="contact-hospitalName" class="form-control"
+                                    placeholder="e.g. Nepalgunj Dental Hospital" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" id="contact-phone" class="form-control" placeholder="+977 98XXXXXXXX"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" id="contact-email" class="form-control"
+                                    placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea id="contact-message" class="form-control" rows="4"
+                                    placeholder="How can we help you?" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" style="padding: 8rem 0; background: white;">
+            <div class="container">
+                <div class="section-header">
+                    <span
+                        style="color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Testimonials</span>
+                    <h2 style="font-size: 3rem; margin-top: 0.5rem;">What Our Patients Say</h2>
+                    <p>Real stories from our valued patients about their journey to a better smile.</p>
+                </div>
+
+                <div id="reviews-grid" class="grid grid-cols-3" style="margin-bottom: 5rem;">
+                    <!-- Reviews will be loaded here -->
+                    <div class="card" style="text-align: center; padding: 4rem;">Loading reviews...</div>
+                </div>
+
+                <div id="review-form-container" class="glass fade-in"
+                    style="max-width: 700px; margin: 0 auto; padding: 3rem; border-radius: var(--radius); display: none;">
+                    <h3 style="text-align: center; margin-bottom: 2rem;">Leave a Review</h3>
+                    <form id="review-form">
+                        <div class="form-group">
+                            <label class="form-label">Rating</label>
+                            <div id="star-input"
+                                style="display: flex; gap: 0.5rem; font-size: 1.5rem; cursor: pointer; color: #cbd5e1;">
+                                <span data-value="1">★</span>
+                                <span data-value="2">★</span>
+                                <span data-value="3">★</span>
+                                <span data-value="4">★</span>
+                                <span data-value="5">★</span>
+                            </div>
+                            <input type="hidden" id="rating-val" name="rating" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Experience</label>
+                            <textarea id="review-comment" class="form-control" rows="4"
+                                placeholder="Share your experience with us..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Review</button>
+                    </form>
+                </div>
+                <div id="review-login-msg" style="text-align: center; color: var(--text-muted);">
+                    <p><a href="login.html" style="color: var(--primary); font-weight: 600;">Login</a> to share your
+                        experience with us.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 5rem 0; background: #0f172a; color: white;">
+        <div class="container">
+            <div class="grid grid-cols-3" style="margin-bottom: 4rem;">
+                <div>
+                    <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: white;">Dental<span
+                            style="color: var(--accent);">Care</span></h2>
+                    <p style="color: #94a3b8; line-height: 1.8;">Providing professional and gentle dental care since
+                        2001. Your health and smile are our top priorities.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Quick Links</h4>
+                    <ul style="list-style: none; color: #94a3b8; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li><a href="#services" style="color: inherit; text-decoration: none;">Services</a></li>
+                        <li><a href="about.html" style="color: inherit; text-decoration: none;">About Us</a></li>
+                        <li><a href="register.html" style="color: inherit; text-decoration: none;">Book Appointment</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Contact Us</h4>
+                    <p style="color: #94a3b8; margin-bottom: 0.5rem;">📍 Nepalgunj, Nepal</p>
+                    <p style="color: #94a3b8; margin-bottom: 0.5rem;">📞 +977 1 4XXXXXX</p>
+                    <p style="color: #94a3b8;">✉ info@dentalcare.com</p>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: #64748b; font-size: 0.9rem;">
+                <p>&copy; 2026 DentalCare Clinic. Developed by Jiban Chaudhary. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            updateUIAuth();
+            loadServices();
+            loadTeam();
+            loadReviews();
+            setupReviewForm();
+            setupContactForm();
+            setupMobileMenu();
+        });
+
+        function setupMobileMenu() {
+            const toggle = document.getElementById('mobile-menu');
+            const nav = document.querySelector('.nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    nav.classList.toggle('active');
+                });
+            }
+        }
+
+        async function loadTeam() {
+            try {
+                const res = await fetchAPI('/dentists');
+                const grid = document.getElementById('team-grid');
+                if (!res.data || res.data.length === 0) {
+                    grid.innerHTML = '<div class="card" style="grid-column: span 3; text-align: center; padding: 4rem;">Our specialists will be listed soon.</div>';
+                    return;
+                }
+                grid.innerHTML = res.data.map((dentist, idx) => {
+                    const imageUrl = dentist.image ? `http://localhost:5001${dentist.image}` : 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=400';
+                    return `
+                    <div class="card fade-in" style="padding: 1rem; animation-delay: ${idx * 0.1}s;">
+                        <img src="${imageUrl}" 
+                            alt="${dentist.user.name}"
+                            style="width: 100%; height: 350px; object-fit: cover; border-radius: var(--radius); margin-bottom: 1.5rem;">
+                        <div style="padding: 0 1rem 1rem;">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.25rem;">Dr. ${dentist.user.name}</h3>
+                            <p style="color: var(--primary); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                ${dentist.specialization}</p>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 1rem; line-height: 1.6;">
+                                ${dentist.bio || 'Premium dental care specialized in modern clinical solutions.'}
+                            </p>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+            } catch (err) { console.error(err); }
+        }
+
+        function setupContactForm() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const hospitalName = document.getElementById('contact-hospitalName').value;
+                const phone = document.getElementById('contact-phone').value;
+                const email = document.getElementById('contact-email').value;
+                const message = document.getElementById('contact-message').value;
+
+                if (!hospitalName || !phone || !email || !message) {
+                    showToast('Please fill in all required fields.', 'error');
+                    return;
+                }
+
+                // Basic regex
+                const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRe.test(email)) {
+                    showToast('Invalid email address.', 'error');
+                    return;
+                }
+
+                const phoneRe = /^(\+977)?[9][0-9]{9}$/;
+                if (!phoneRe.test(phone.replace(/\s/g, ''))) {
+                    showToast('Invalid Nepal phone number (+977 9XXXXXXXXX).', 'error');
+                    return;
+                }
+
+                const payload = { hospitalName, phone, email, message };
+                try {
+                    const btn = form.querySelector('button');
+                    btn.disabled = true;
+                    btn.innerHTML = 'Sending...';
+
+                    await fetchAPI('/messages', { method: 'POST', body: JSON.stringify(payload) });
+                    showToast('Message sent! We will contact you soon.', 'success');
+                    form.reset();
+                } catch (err) {
+                    showToast(err.message, 'error');
+                } finally {
+                    const btn = form.querySelector('button');
+                    btn.disabled = false;
+                    btn.innerHTML = 'Send Message';
+                }
+            });
+        }
+
+        function updateUIAuth() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const authLinks = document.getElementById('auth-links');
+            const reviewFormContainer = document.getElementById('review-form-container');
+            const reviewLoginMsg = document.getElementById('review-login-msg');
+
+            if (user) {
+                let dashboard = 'patient.html';
+                if (user.role === 'admin') dashboard = 'admin.html';
+                if (user.role === 'dentist') dashboard = 'dentist.html';
+
+                authLinks.innerHTML = `
+                    <a href="${dashboard}" class="btn btn-outline" style="padding: 0.5rem 1rem;">Dashboard</a>
+                    <button onclick="logout()" class="btn btn-primary" style="padding: 0.5rem 1rem;">Logout</button>
+                `;
+
+                if (user.role === 'patient') {
+                    reviewFormContainer.style.display = 'block';
+                    reviewLoginMsg.style.display = 'none';
+                }
+            }
+        }
+
+        async function loadServices() {
+            try {
+                const res = await fetchAPI('/services');
+                const grid = document.getElementById('services-grid');
+                grid.innerHTML = res.data.map(service => `
+                    <div class="card fade-in">
+                        <div style="width: 50px; height: 50px; background: rgba(37, 99, 235, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: var(--primary); font-size: 1.5rem;">🦷</div>
+                        <h4 style="font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--text);">${service.name}</h4>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.6;">${service.description}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid #f1f5f9;">
+                            <span style="font-weight: 800; font-size: 1.25rem; color: var(--primary);">Rs. ${service.price}</span>
+                            <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600; background: #f1f5f9; padding: 0.25rem 0.75rem; border-radius: 99px;">${service.duration} MIN</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function loadReviews() {
+            try {
+                // Add a small delay or check for server health if needed
+                const res = await fetchAPI('/reviews');
+                const grid = document.getElementById('reviews-grid');
+                if (!res.data || res.data.length === 0) {
+                    grid.innerHTML = '<div class="card" style="grid-column: span 3; text-align: center; padding: 4rem;">Be the first to leave a review!</div>';
+                    return;
+                }
+                grid.innerHTML = res.data.map(review => `
+                    <div class="review-card fade-in">
+                        <div class="star-rating" style="margin-bottom: 1rem;">
+                            ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                        </div>
+                        <p style="color: var(--text); margin-bottom: 1.5rem; font-style: italic; line-height: 1.7;">"${review.comment}"</p>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; background: var(--gradient); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">${review.patient ? review.patient.name[0] : '?'}</div>
+                            <div>
+                                <h5 style="margin: 0;">${review.patient ? review.patient.name : 'Anonymous'}</h5>
+                                <small style="color: var(--text-muted);">${new Date(review.createdAt).toLocaleDateString()}</small>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('reviews-grid').innerHTML = '<div class="card" style="grid-column: span 3; text-align: center; padding: 4rem;">Unable to load reviews. Please refresh the page.</div>';
+            }
+        }
+
+        function setupReviewForm() {
+            const stars = document.querySelectorAll('#star-input span');
+            const ratingInput = document.getElementById('rating-val');
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const val = star.getAttribute('data-value');
+                    ratingInput.value = val;
+                    stars.forEach((s, idx) => {
+                        s.style.color = idx < val ? '#f59e0b' : '#cbd5e1';
+                    });
+                });
+            });
+
+            document.getElementById('review-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const rating = ratingInput.value;
+                const comment = document.getElementById('review-comment').value;
+
+                if (rating == 0) {
+                    showToast('Please select a rating', 'error');
+                    return;
+                }
+
+                try {
+                    await fetchAPI('/reviews', {
+                        method: 'POST',
+                        body: JSON.stringify({ rating, comment })
+                    });
+                    showToast('Review submitted successfully!', 'success');
+                    document.getElementById('review-form').reset();
+                    stars.forEach(s => s.style.color = '#cbd5e1');
+                    ratingInput.value = 0;
+                    loadReviews();
+                } catch (err) {
+                    showToast(err.message, 'error');
+                }
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.reload();
+        }
+    </script>
+</body>
+</body>
+
+</html>
