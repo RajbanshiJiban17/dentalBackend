@@ -1,7 +1,7 @@
 // Replace with your actual Render backend URL after deployment
 const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5001/api'
-    : 'https://dental-appointment-backend.onrender.com/api';
+    : 'https://dental-backend.onrender.com/api';
 
 
 const fetchAPI = async (endpoint, options = {}) => {
