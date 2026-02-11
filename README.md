@@ -1,8 +1,6 @@
-# Dental.com - Dental Appointment System
+# Dental Appointment System
 
-Welcome to the **Dental.com** Dental Appointment System. This is a full-stack web application designed for managing patients, dentists, services, and online appointments.
-
-## 🌐 Official Site: [www.dental.com](http://www.dental.com) (Branding)
+Welcome to the Dental Appointment System. This is a full-stack web application designed for managing patients, dentists, services, and online appointments.
 
 ---
 
